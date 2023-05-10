@@ -17,24 +17,24 @@ app.use((Request,Response,next)=>{
     next();
 });
 
-var trainStat;
+const trainStat=new FlatDB.Collection('trains', {
+  runStatus: 0,
+  speed: 0,
+  headLamp: 0,
+  comp1light: 0,
+  comp2light: 0,
+  comp3light: 0,
+  lastCorssedCheck: 0,
+  lastStoppedCheck: 0,
+  nextCheck: 0,
+  nextStop: 0,
+  totalCheck: 0
+});;
 var keys;
 var key;
 const bootHandler = async function (){
   console.log("bootloader");
-  trainStat=new FlatDB.Collection('trains', {
-    runStatus: 0,
-    speed: 0,
-    headLamp: 0,
-    comp1light: 0,
-    comp2light: 0,
-    comp3light: 0,
-    lastCorssedCheck: 0,
-    lastStoppedCheck: 0,
-    nextCheck: 0,
-    nextStop: 0,
-    totalCheck: 0
-  });
+  
   trainStat.reset();
   keys=trainStat.add([
     {
