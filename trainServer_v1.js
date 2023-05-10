@@ -30,7 +30,7 @@ const trainStat=new FlatDB.Collection('trains', {
   nextStop: 0,
   totalCheck: 0
 });;
-var keys;
+var keys = trainStat.add([{}]);
 var key;
 const bootHandler = async function (){
   console.log("bootloader");
