@@ -104,6 +104,9 @@ app.get('/set/:item', (req, res)=> {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   res.setHeader('Access-Control-Allow-Methods', 'GET');
   let tstat=trainStat.get(key);
+  if(tstat.runStatus == 2){
+    tstat.runStatus = 1;
+  }
   if(req.params.item == 'speed'){
     if(tstat.runStatus == 1){
       if(req.query.value >=160 && req.query.value <=255){
@@ -115,9 +118,9 @@ app.get('/set/:item', (req, res)=> {
     if(req.query.value == 0){
       tstat.speed = 100;
       tstat.runStatus = 0;
-    }else if(req.query.value == 1){
+    }else if(req.query.value == 1 && tstat.runStatus == 0){
       tstat.speed = 160;
-      tstat.runStatus = 1;
+      tstat.runStatus = 2;
     }
   }
   if(req.params.item == 'headLamp'){
