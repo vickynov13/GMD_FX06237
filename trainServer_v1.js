@@ -68,6 +68,11 @@ app.get('/resetall', (req, res)=> {
   })
 
 app.get('/status', (req, res)=> {
+  let tstat=trainStat.get(key);
+  if(tstat.runStatus > 1){
+    tstat.runStatus = 1;
+    trainStat.update(key, tstat);
+  }
   res.setHeader('Content-Type', 'application/json');
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -81,7 +86,8 @@ app.get('/speed/:item', (req, res)=> {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   res.setHeader('Access-Control-Allow-Methods', 'GET');
   let tstat=trainStat.get(key);
-  if(tstat.runStatus == 1){
+  if(tstat.runStatus >= 1){
+    tstat.runStatus = 1;
     if(req.params.item == 'up'){
       var upspd = tstat.speed + 20;
       if(upspd >= 255){
@@ -104,13 +110,13 @@ app.get('/set/:item', (req, res)=> {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   res.setHeader('Access-Control-Allow-Methods', 'GET');
   let tstat=trainStat.get(key);
-  if(tstat.runStatus == 2){
+  if(tstat.runStatus > 1){
     tstat.runStatus = 1;
   }
   if(req.params.item == 'speed'){
     if(tstat.runStatus == 1){
       if(req.query.value >=160 && req.query.value <=255){
-        tstat.speed=req.query.value;
+        tstat.speed=Number(req.query.value);
       }
     }
   }
