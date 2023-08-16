@@ -68,10 +68,15 @@ app.get('/resetall', (req, res)=> {
   })
 
 app.get('/status', (req, res)=> {
-  let tstat=trainStat.get(key);
-  if(tstat.runStatus > 1){
-    tstat.runStatus = 1;
-    trainStat.update(key, tstat);
+  let tstat=null;
+  try {
+    tstat=trainStat.get(key);
+    if(tstat.runStatus > 1){
+      tstat.runStatus = 1;
+      trainStat.update(key, tstat);
+    }
+  } catch (error) {
+    bootHandler();
   }
   res.setHeader('Content-Type', 'application/json');
   res.setHeader('Access-Control-Allow-Origin', '*');
