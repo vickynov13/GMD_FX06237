@@ -1,6 +1,6 @@
 const express=require('express');
 const app=express();
-const port=5000;
+const port=80;
 const FlatDB=require('flat-db');
 var bodyParser=require('body-parser');
 
