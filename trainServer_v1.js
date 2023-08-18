@@ -2,12 +2,13 @@ const express=require('express');
 const app=express();
 const port= 80;
 const FlatDB=require('flat-db');
+const path = require('path');
 var bodyParser=require('body-parser');
 
 FlatDB.configure({
   dir: './storage',
 });
-
+app.use(express.static('build'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use((Request,Response,next)=>{
@@ -58,9 +59,10 @@ app.listen(port, ()=> {
   console.log(`App running on port ${port}`)
 })
 
-app.get('/', (req, res)=> {
-  res.send(key)
-})
+
+app.get('/', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
+  });
 
 app.get('/resetall', (req, res)=> {
     bootHandler();
