@@ -139,12 +139,12 @@ app.get('/set/:item', (req, res)=> {
   if(req.params.item == 'headLamp'){
     if(req.query.value == 0){
         tstat.headLamp = 0;
-    }else{ tstat.headLamp = 1;}
+    }else if (req.query.value == 1){tstat.headLamp = 160;}else{ tstat.headLamp = 255;}
   }
   if(req.params.item == 'comp1light'){
     if(req.query.value == 0){
         tstat.comp1light = 0;
-    }else{ tstat.comp1light = 1;}
+    }else if(req.query.value == 1){tstat.comp1light = 160;}else{ tstat.comp1light = 255;}
   }
   if(req.params.item == 'comp2light'){
     if(req.query.value == 0){
