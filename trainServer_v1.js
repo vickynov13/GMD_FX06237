@@ -41,7 +41,7 @@ const bootHandler = async function (){
     {
       runStatus: 0,
       speed: 80,
-      headLamp: 0,
+      headLamp: 160,
       comp1light: 0,
       comp2light: 0,
       comp3light: 0,
@@ -138,8 +138,8 @@ app.get('/set/:item', (req, res)=> {
   }
   if(req.params.item == 'headLamp'){
     if(req.query.value == 0){
-        tstat.headLamp = 0;
-    }else if (req.query.value == 1){tstat.headLamp = 160;}else{ tstat.headLamp = 255;}
+        tstat.headLamp = 160;
+    }else{tstat.headLamp = 255;}
   }
   if(req.params.item == 'comp1light'){
     if(req.query.value == 0){
